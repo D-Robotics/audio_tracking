@@ -93,7 +93,7 @@ void AudioTrackingNode::SmartTopicCallback(
 
 void AudioTrackingNode::PoseCallback(
     const nav_msgs::msg::Odometry::ConstSharedPtr odom) {
-  std::cout << "recv car pos info callback" << std::endl;
+  RCLCPP_DEBUG(rclcpp::get_logger("AudioTrackingNode"), "recv car pos info callback");
   if (tf_pose_cb_) {
     tf_pose_cb_(odom);
   }

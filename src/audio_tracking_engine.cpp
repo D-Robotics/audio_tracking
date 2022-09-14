@@ -294,22 +294,15 @@ void AudioTrackingEngine::FeedMovePoseMsg(const Twist::SharedPtr &pose) {
 
 double getYaw(const tf2::Quaternion quat) {
   tf2::Matrix3x3 mat(quat);
-
   double dummy;
   double yaw;
   mat.getRPY(dummy, dummy, yaw);
-
   return yaw;
 }
 
 void AudioTrackingEngine::PoseCallback(
     const nav_msgs::msg::Odometry::ConstSharedPtr &odom) {
-  std::cout << "recv car pos info callback" << std::endl;
   has_tf_info_ = true;
-#if 0
-  tf::quaternionMsgToTF(odom.pose.pose.orientation, q_msg);
-  tf::Matrix3x3(q_msg).getRPY(roll, pitch, yaw);
-#else
   geometry_msgs::msg::Quaternion quat;
   quat.x = odom->pose.pose.orientation.x;
   quat.y = odom->pose.pose.orientation.y;
@@ -320,19 +313,9 @@ void AudioTrackingEngine::PoseCallback(
   tf2::convert(quat, quat_tf);
   tf2::Matrix3x3(quat_tf).getRPY(roll, pitch, yaw_tmp);
   yaw = (180 / PI) * yaw_tmp;
-#endif
 }
 
 #define UNIT_ANGLE 180 / 3.1149
-double T_angle(double a) {
-  a = fmod(a, 360);
-  if (a > 180)
-    a = a - 360;
-  else if (a < -180)
-    a = a + 360;
-  return a;
-}
-
 void AudioTrackingEngine::MoveToDoaThetaByPose(const float doa_theta) {
   bool move_front = false;
   bool rotate = false;
@@ -352,9 +335,6 @@ void AudioTrackingEngine::MoveToDoaThetaByPose(const float doa_theta) {
     angle = doa_theta - 90;
   }
 
-  double rotation_angle = T_angle(angle);
-  std::cout << "angle:" << angle << ", rotation angle:" << rotation_angle
-            << std::endl;
   double angle_tmp = 0.0;
   i_yaw = yaw;
   while (start_) {
@@ -374,10 +354,6 @@ void AudioTrackingEngine::MoveToDoaThetaByPose(const float doa_theta) {
         angle_tmp = yaw - i_yaw;
       }
       FeedMovePoseMsg(twist);
-
-      // if(yaw > m_yaw)m_yaw = yaw;
-      std::cout << "yaw: %.5f" << yaw << "Angle: %.2f "
-                << angle_tmp * UNIT_ANGLE << std::endl;
     }
     if (angle_tmp * UNIT_ANGLE >= angle) break;
   }

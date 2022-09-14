@@ -1,6 +1,6 @@
 # 功能介绍
 
-audio_tracking package功能为通过语音唤醒词来控制机器人运动，转向声源发布者。
+audio_tracking package功能为通过语音唤醒词来唤醒设备，并且通过声源定位的Doa信息来控制机器人运动，转向声源发布者。
 
 此package订阅智能语音结果audio_msg，解析音频智能帧，在设备唤醒之后根据声源的Doa信息去控制机器人运动，转向声源方向，并且前进一定的距离。本示例唤醒词的定义在hobot_audio package中，此package需要搭配hobot_audio一起使用；若用户有其他智能语音处理模块，也可以通过发布audio_msg::msg::SmartAudioData话题消息提供给本package使用。
 
