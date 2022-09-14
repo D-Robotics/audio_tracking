@@ -23,10 +23,12 @@ int main(int argc, char** argv) {
      << "\taudio tracking usage\n"
      << "\nWake up device is \"地平线你好\".\n"
      << "Audio control commnad word definitions are:\n"
-     << "\t\"向前走\": move front. (close from controler)\n"
-     << "\t\"向后退\": move back. (far from controler)\n"
-     << "\t\"向右转\": rotate robot to right.\n"
-     << "\t\"向左转\": rotate robot to left. \n"
+     << "\t\"向前走\"\n"
+     << "\t\"向后退\"\n"
+     << "\t\"向右转\"\n"
+     << "\t\"向左转\" \n"
+     << "When you say the wake word, the car turns toward you \n"
+     << "Let's start the experience\n"
      << "============================================\n";
   std::cout << ss.str() << std::endl;
 

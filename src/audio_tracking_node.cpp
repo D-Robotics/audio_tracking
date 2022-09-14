@@ -84,10 +84,9 @@ void AudioTrackingNode::SmartTopicCallback(
   ss << "Recved audio msg"
      << ", frame type: " << msg->frame_type.value
      << ", event_type: " << msg->event_type.value << "\n";
-  RCLCPP_INFO(rclcpp::get_logger("AudioTrackingNode"), "%s", ss.str().c_str());
+  RCLCPP_DEBUG(rclcpp::get_logger("AudioTrackingNode"), "%s", ss.str().c_str());
 
   if (smart_audio_cb_) {
-    std::cout << "call smart cb" << std::endl;
     smart_audio_cb_(msg);
   }
 }

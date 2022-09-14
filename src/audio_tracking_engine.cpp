@@ -162,7 +162,7 @@ void AudioTrackingEngine::ProcessAudioSmart(
 
 int AudioTrackingEngine::ProcessEvent(const int event_type) {
   RCLCPP_INFO(rclcpp::get_logger("audio_tracking"),
-              "process audio evetn type:%d",
+              "process audio event type:%d",
               event_type);
   if (event_type == Event_WkpNormal || event_type == Event_WkpOneshot) {
     is_device_active_ = true;
