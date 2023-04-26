@@ -118,7 +118,7 @@ cp -r install/lib/hobot_audio/config/ .
 bash config/audio.sh
 
 # 启动音频控制节点
-ros2 launch install/share/audio_tracking/launch/hobot_audio_tracking.launch.py
+ros2 launch install/share/audio_tracking/launch/audio_tracking.launch.py
 ```
 
 ### **Linux**
