@@ -36,7 +36,7 @@ APP可以使用PC端Gazebo仿真环境下的虚拟小车运行，也可以直接
 
 ### 准备工作
 
-1. 机器人具备运动底盘、相机及RDK套件，硬件已经连接并测试完毕；
+1. 机器人具备运动底盘、相机、环形麦克风板及RDK套件，硬件已经连接并测试完毕；
 2. 已有ROS底层驱动，机器人可接收“/cmd_vel”指令运动，并根据指令正确运动。
 
 ### 机器人组装
@@ -83,8 +83,8 @@ cp -r /opt/tros/lib/hobot_audio/config/ .
 # 加载音频驱动，设备启动之后只需要加载一次
 bash config/audio.sh
 
-#启动launch文件
-ros2 launch audio_tracking audio_tracking.launch.py
+# 启动launch文件，指定小车正前方的语音DOA角度，以180为例
+ros2 launch audio_tracking audio_tracking.launch.py car_front_audio_angle:=180
 ```
 
 启动成功后，在机器人和mic板前发出设备唤醒词“地平线你好”，语音追踪控制模块接收到唤醒事件之后接收到DOA角度信息转动小车位置，然后"向前走"、"向后退"、"向右转"、"向左转"控制小车前后左右移动。
@@ -160,8 +160,8 @@ cp -r /opt/tros/lib/hobot_audio/config/ .
 # 加载音频驱动，设备启动之后只需要加载一次
 bash config/audio.sh
 
-#启动launch文件
-ros2 launch audio_tracking audio_tracking.launch.py
+# 启动launch文件，指定小车正前方的语音DOA角度，以180为例
+ros2 launch audio_tracking audio_tracking.launch.py car_front_audio_angle:=180
 ```
 
 启动成功后，在机器人和mic板前发出设备唤醒词“地平线你好”，语音追踪控制模块接收到唤醒事件之后接收到DOA角度信息转动小车位置，然后"向前走"、"向后退"、"向右转"、"向左转"控制小车前后左右移动。
@@ -175,7 +175,6 @@ PC端仿真环境中语音追踪控制小车运动，效果如下[点击跳转](
 | 名称                          | 消息类型                                                     | 说明                                                   |
 | ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------ |
 | /cmd_vel                      | geometry_msgs/msg/Twist                                      | 发布控制机器人移动的速度指令                           |
-| /audio_smart  | [hobot_msgs/ai_msgs/msg/PerceptionTargets](hobot_msgs/ai_msgs/msg/PerceptionTargets) | 发布智能语音信息                               |
 
 ## 参数
 
