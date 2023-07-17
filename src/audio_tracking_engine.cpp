@@ -188,18 +188,24 @@ void AudioTrackingEngine::MoveToDoaTheta(const float doa_theta) {
   bool rotate = false;
   int direction = 1;
   float angle = 0.0;
-  if (80 <= doa_theta &&
-      doa_theta <= 100) {  // 声源在前方偏移左右10度左右，不转角
-    move_front = true;
-  } else if (0 <= doa_theta && doa_theta <= 80) {  // 声源在左边
+
+  auto doa_angle = static_cast<int>(std::round(doa_theta)) % 360;
+  auto front_angle = move_cfg_.front_audio_angle % 360;
+  auto ccw_rotate_angle = (doa_angle - front_angle + 360) % 360;
+  if (10 <= ccw_rotate_angle && ccw_rotate_angle <= 180) {
+    // 声源在左侧
     move_front = true;
     rotate = true;
-    angle = 90 - doa_theta;
-  } else if (100 <= doa_theta && doa_theta <= 180) {  // 声源在右边
+    angle = ccw_rotate_angle;
+  } else if (180 <= ccw_rotate_angle && ccw_rotate_angle <= 350) {
+    // 声源在右侧
     move_front = true;
     rotate = true;
     direction = -1;
-    angle = doa_theta - 90;
+    angle = 360 - ccw_rotate_angle;
+  } else {
+    // 声源在前方偏移左右10度左右，不转角
+    move_front = true;
   }
 
   if (rotate) DoRotate(angle, direction);
@@ -321,18 +327,24 @@ void AudioTrackingEngine::MoveToDoaThetaByPose(const float doa_theta) {
   bool rotate = false;
   int direction = 1;
   float angle = 0.0;
-  if (80 <= doa_theta &&
-      doa_theta <= 100) {  // 声源在前方偏移左右10度左右，不转角
-    move_front = true;
-  } else if (0 <= doa_theta && doa_theta <= 80) {  // 声源在左边
+  auto doa_angle = static_cast<int>(std::round(doa_theta)) % 360;
+  auto front_angle = move_cfg_.front_audio_angle % 360;
+  auto ccw_rotate_angle = (doa_angle - front_angle + 360) % 360;
+
+  if (10 <= ccw_rotate_angle && ccw_rotate_angle <= 180) {
+    // 声源在左侧
     move_front = true;
     rotate = true;
-    angle = 90 - doa_theta;
-  } else if (100 <= doa_theta && doa_theta <= 180) {  // 声源在右边
+    angle = ccw_rotate_angle;
+  } else if (180 <= ccw_rotate_angle && ccw_rotate_angle <= 350) {
+    // 声源在右侧
     move_front = true;
     rotate = true;
     direction = -1;
-    angle = doa_theta - 90;
+    angle = 360 - ccw_rotate_angle;
+  } else {
+    // 声源在前方偏移左右10度左右，不转角
+    move_front = true;
   }
 
   double angle_tmp = 0.0;

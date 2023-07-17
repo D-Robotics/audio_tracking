@@ -27,8 +27,8 @@
 #include "rclcpp/rclcpp.hpp"
 
 using geometry_msgs::msg::Twist;
-using rclcpp::NodeOptions;
 using nav_msgs::msg::Odometry;
+using rclcpp::NodeOptions;
 
 class AudioTrackingEngine {
  public:
@@ -52,8 +52,8 @@ class AudioTrackingEngine {
       const audio_msg::msg::SmartAudioData::ConstSharedPtr &msg);
   int ProcessDoa(const float doa_theta);
   int ProcessEvent(const int event_type);
-  
-  private:
+
+ private:
   // move control
   void MoveToDoaTheta(const float doa_theta);
   void DoRotate(const float doa_theta, int direction);
@@ -93,7 +93,7 @@ class AudioTrackingEngine {
   // 控制管理，当控制时长超过阈值，发布停止指令
   std::shared_ptr<std::thread> ctrl_manage_task_ = nullptr;
   std::mutex ctrl_manage_mtx_;
-   std::condition_variable move_condition_;
+  std::condition_variable move_condition_;
   std::chrono::system_clock::time_point last_ctrl_tp;
 
   // 位置信息

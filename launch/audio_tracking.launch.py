@@ -20,6 +20,8 @@ from launch_ros.actions import Node
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python import get_package_share_directory
+from launch.actions import DeclareLaunchArgument
+from launch.substitutions import LaunchConfiguration
 
 
 def generate_launch_description():
@@ -35,6 +37,10 @@ def generate_launch_description():
 
             }.items()
         ),
+        DeclareLaunchArgument(
+            'car_front_audio_angle',
+            default_value='180',
+            description='Voice angle in front of the car'),
         # 启动语音控制pkg
         Node(
             package='audio_tracking',
@@ -42,7 +48,8 @@ def generate_launch_description():
             output='screen',
             parameters=[
                 {"ai_msg_sub_topic_name": "/audio_smart"},
-                {"twist_pub_topic_name": "/cmd_vel"}
+                {"twist_pub_topic_name": "/cmd_vel"},
+                {"front_audio_angle": LaunchConfiguration('car_front_audio_angle')}
             ],
             arguments=['--ros-args', '--log-level', 'error']
         )
