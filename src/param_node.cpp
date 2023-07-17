@@ -25,6 +25,8 @@ ParametersClass::ParametersClass(RobotMoveCfg *cfg,
   if (cfg_) {
     this->declare_parameter<float>("move_step", cfg_->move_step);
     this->declare_parameter<float>("rotate_step", cfg_->rotate_step);
+    this->declare_parameter<float>("front_audio_angle", cfg_->front_audio_angle);
+    this->get_parameter("front_audio_angle", cfg_->front_audio_angle);
     timer_ = this->create_wall_timer(
         1000ms, std::bind(&ParametersClass::Respond, this));
   }

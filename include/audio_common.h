@@ -119,6 +119,7 @@ struct RobotMoveCfg {
   float move_step = 0.3;                      // 0.5m
   float activate_robot_move_meter_thr = 1.5;  // meter
   float rotate_step = 0.348;                  // 20 degree
+  int front_audio_angle = 180;                // the front is 180 degree of doa
 };
 
 #endif
