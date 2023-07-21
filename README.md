@@ -24,13 +24,13 @@ APP可以使用PC端Gazebo仿真环境下的虚拟小车运行，也可以直接
 
 以下机器人均已适配RDK X3
 
-| 机器人名称          | 生产厂家 | 参考链接                                                     |
-| :------------------ | -------- | ------------------------------------------------------------ |
-| OriginBot智能机器人 | 古月居   | [点击跳转](https://www.originbot.org/)                       |
-| X3派机器人          | 轮趣科技 | [点击跳转](https://item.taobao.com/item.htm?spm=a230r.1.14.17.55e556912LPGGx&id=676436236906&ns=1&abbucket=12#detail) |
+| 机器人名称          | 生产厂家 | 参考链接                                                                                                                                                          |
+| :------------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| OriginBot智能机器人 | 古月居   | [点击跳转](https://www.originbot.org/)                                                                                                                            |
+| X3派机器人          | 轮趣科技 | [点击跳转](https://item.taobao.com/item.htm?spm=a230r.1.14.17.55e556912LPGGx&id=676436236906&ns=1&abbucket=12#detail)                                             |
 | 履带智能车          | 微雪电子 | [点击跳转](https://detail.tmall.com/item.htm?abbucket=9&id=696078152772&rn=4d81bea40d392509d4a5153fb2c65a35&spm=a1z10.5-b-s.w4011-22714387486.159.12d33742lJtqRk) |
-| RDK X3 Robot        | 亚博智能 | [点击跳转](https://detail.tmall.com/item.htm?id=726857243156&scene=taobao_shop&spm=a1z10.1-b-s.w5003-22651379998.21.421044e12Yqrjm) |
-| 麦克风板        | 微雪电子 | [点击跳转](https://detail.tmall.com/item.htm?abbucket=13&id=695484656823&rn=486b3ebcd340f11fb94c4c8a9c2f1fd0&spm=a1z10.5-b-s.w4011-22714387486.195.5dbb37424SZyDx) |
+| RDK X3 Robot        | 亚博智能 | [点击跳转](https://detail.tmall.com/item.htm?id=726857243156&scene=taobao_shop&spm=a1z10.1-b-s.w5003-22651379998.21.421044e12Yqrjm)                               |
+| 麦克风板            | 微雪电子 | [点击跳转](https://www.waveshare.net/shop/Audio-Driver-HAT.htm)                                                                                                   |
 
 ## 使用方法
 
@@ -49,7 +49,7 @@ APP可以使用PC端Gazebo仿真环境下的虚拟小车运行，也可以直接
 
 **2.安装功能包**
 
-启动机器人后，通过终端或者VNC连接机器人，点击本页面右上方的“一键部署”按钮，复制如下命令在RDK的系统上运行，完成相关Node的安装。
+启动机器人后，通过终端SSH或者VNC连接机器人，复制如下命令在RDK的系统上运行，完成相关Node的安装。
 
 ```bash
 sudo apt update
@@ -83,6 +83,9 @@ cp -r /opt/tros/lib/hobot_audio/config/ .
 # 加载音频驱动，设备启动之后只需要加载一次
 bash config/audio.sh
 
+# 屏蔽调式打印信息
+export GLOG_minloglevel=3
+
 # 启动launch文件，指定小车正前方的语音DOA角度，以180为例
 ros2 launch audio_tracking audio_tracking.launch.py car_front_audio_angle:=180
 ```
@@ -95,10 +98,10 @@ Gazebo仿真适用于持有RDK X3但没有机器人实物的开发者体验功�
 
 ## 物料清单
 
-| 机器人名称          | 生产厂家 | 参考链接                                                     |
-| :------------------ | -------- | ------------------------------------------------------------ |
-| RDK X3             | 多厂家 | [点击跳转](https://developer.horizon.ai/sunrise) |
-| 麦克风板        | 微雪电子 | [点击跳转](https://detail.tmall.com/item.htm?abbucket=13&id=695484656823&rn=486b3ebcd340f11fb94c4c8a9c2f1fd0&spm=a1z10.5-b-s.w4011-22714387486.195.5dbb37424SZyDx) |
+| 机器人名称 | 生产厂家 | 参考链接                                                        |
+| :--------- | -------- | --------------------------------------------------------------- |
+| RDK X3     | 多厂家   | [点击跳转](https://developer.horizon.cc/sunrise)                |
+| 麦克风板   | 微雪电子 | [点击跳转](https://www.waveshare.net/shop/Audio-Driver-HAT.htm) |
 
 ## 使用方法
 
@@ -121,7 +124,7 @@ Gazebo仿真适用于持有RDK X3但没有机器人实物的开发者体验功�
 
 ### 安装功能包
 
-启动RDK X3后，通过终端或者VNC连接机器人，点击[NodeHub](http://it-dev.horizon.ai/nodehubDetail/167289845913411076)右上方的“一键部署”按钮，复制如下命令在RDK的系统上运行，完成相关Node的安装。
+启动RDK X3后，通过终端SSH或者VNC连接机器人，复制如下命令在RDK的系统上运行，完成相关Node的安装。
 
 ```bash
 sudo apt update
@@ -172,19 +175,19 @@ PC端仿真环境中语音追踪控制小车运动，效果如下[点击跳转](
 
 ## 话题
 
-| 名称                          | 消息类型                                                     | 说明                                                   |
-| ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------ |
-| /cmd_vel                      | geometry_msgs/msg/Twist                                      | 发布控制机器人移动的速度指令                           |
+| 名称     | 消息类型                | 说明                         |
+| -------- | ----------------------- | ---------------------------- |
+| /cmd_vel | geometry_msgs/msg/Twist | 发布控制机器人移动的速度指令 |
 
 ## 参数
 
-| 参数名                | 类型        | 解释                                  | 是否必须 | 支持的配置           | 默认值                                               |
-| --------------------- | ----------- | --------------------------------------| -------- | -------------------- | ---------------------------------------------------- |
-| ai_msg_sub_topic_name | std::string | 订阅的音频智能帧消息话题              | 否       | 根据实际情况配置     | /audio_smart                                                    |
-| twist_pub_topic_name  | std::string | 发布Twist类型的运动控制消息的topic名  | 否       | 根据实际部署环境配置。一般机器人订阅的topic为/cmd_vel，ROS2 turtlesim示例订阅的topic为turtle1/cmd_vel。 | /cmd_vel |
-| move_step             | float       | 平移运动的步长，单位米                | 否       | 无限制               | 0.5                                                   |
-| rotate_step           | float       | 旋转运动的步长，单位弧度              | 否       | 无限制               | 0.5                                                   |
-| front_audio_angle           | int       | 小车正前方对应的语音DOA角度              | 否       | 0-360               | 180                                                   |
+| 参数名                | 类型        | 解释                                 | 是否必须 | 支持的配置                                                                                              | 默认值       |
+| --------------------- | ----------- | ------------------------------------ | -------- | ------------------------------------------------------------------------------------------------------- | ------------ |
+| ai_msg_sub_topic_name | std::string | 订阅的音频智能帧消息话题             | 否       | 根据实际情况配置                                                                                        | /audio_smart |
+| twist_pub_topic_name  | std::string | 发布Twist类型的运动控制消息的topic名 | 否       | 根据实际部署环境配置。一般机器人订阅的topic为/cmd_vel，ROS2 turtlesim示例订阅的topic为turtle1/cmd_vel。 | /cmd_vel     |
+| move_step             | float       | 平移运动的步长，单位米               | 否       | 无限制                                                                                                  | 0.5          |
+| rotate_step           | float       | 旋转运动的步长，单位弧度             | 否       | 无限制                                                                                                  | 0.5          |
+| front_audio_angle     | int         | 小车正前方对应的语音DOA角度          | 否       | 0-360                                                                                                   | 180          |
 
 # 参考资料
 
@@ -196,14 +199,14 @@ PC端仿真环境中语音追踪控制小车运动，效果如下[点击跳转](
 
 当前终端未设置ROS2环境，执行命令配置环境：
 
-```
+```bash
 export COLCON_CURRENT_PREFIX=./install
 source ./install/setup.bash
 ```
 
 在当前终端执行ros2命令确认当前终端环境是否生效：
 
-```
+```shell
 # ros2
 usage: ros2 [-h] Call `ros2 <command> -h` for more detailed usage. ...
 
