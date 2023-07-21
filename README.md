@@ -53,7 +53,7 @@ APP可以使用PC端Gazebo仿真环境下的虚拟小车运行，也可以直接
 
 ```bash
 sudo apt update
-sudo apt install -y tros-audio-control
+sudo apt install -y tros-audio-tracking
 ```
 
 ### 运行功能
@@ -121,6 +121,7 @@ Gazebo仿真适用于持有RDK X3但没有机器人实物的开发者体验功�
   sudo apt-get install ros-foxy-gazebo-*
   sudo apt install ros-foxy-turtlebot3
   sudo apt install ros-foxy-turtlebot3-simulations
+  ```
 
 ### 安装功能包
 
@@ -128,7 +129,7 @@ Gazebo仿真适用于持有RDK X3但没有机器人实物的开发者体验功�
 
 ```bash
 sudo apt update
-sudo apt install -y tros-audio-control
+sudo apt install -y tros-audio-tracking
 ```
 
 ### 运行功能
@@ -162,6 +163,9 @@ cp -r /opt/tros/lib/hobot_audio/config/ .
 
 # 加载音频驱动，设备启动之后只需要加载一次
 bash config/audio.sh
+
+# 屏蔽调式打印信息
+export GLOG_minloglevel=3
 
 # 启动launch文件，指定小车正前方的语音DOA角度，以180为例
 ros2 launch audio_tracking audio_tracking.launch.py car_front_audio_angle:=180
