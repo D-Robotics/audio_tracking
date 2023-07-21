@@ -4,7 +4,7 @@
 
 流程如下图：
 
-![](./_static/_images/audio/audio_control.jpg)
+![audio_tracking](./imgs/audio_tracking.png)
 
 APP可以使用PC端Gazebo仿真环境下的虚拟小车运行，也可以直接用于控制实物小车。
 
@@ -12,11 +12,7 @@ APP可以使用PC端Gazebo仿真环境下的虚拟小车运行，也可以直接
 
 环形麦克风：
 
-![doa_circle](./_static/_images/audio/doa_circle.jpg)
-
-代码仓库：<https://github.com/HorizonRDK/audio_tracking.git>
-
-应用场景：智能语音模块是语音交互的重要组成部分，主要应用于人机交互、游戏娱乐等领域。
+![doa_circle](./imgs/doa_circle.jpg)
 
 # 机器人实物
 
@@ -45,7 +41,7 @@ APP可以使用PC端Gazebo仿真环境下的虚拟小车运行，也可以直接
 
 ### 安装功能包
 
-**1.参考[OriginBot说明](https://github.com/nodehubs/originbot_minimal/blob/develop/README.md)，完成Originbit基础功能安装**
+**1.参考[OriginBot说明](https://github.com/nodehubs/originbot_minimal/blob/develop/README.md)，完成OriginBot基础功能安装**
 
 **2.安装功能包**
 
@@ -148,7 +144,7 @@ ros2 launch turtlebot3_gazebo empty_world.launch.py
 
 启动成功后，仿真环境中小车效果如下：
 
-![](./_static/_images/audio/gazebo.jpeg)
+![gazebo](./imgs/gazebo.jpeg)
 
 **2.启动语音控制**
 
@@ -204,8 +200,7 @@ PC端仿真环境中语音追踪控制小车运动，效果如下[点击跳转](
 当前终端未设置ROS2环境，执行命令配置环境：
 
 ```bash
-export COLCON_CURRENT_PREFIX=./install
-source ./install/setup.bash
+source /opt/tros/setup.bash
 ```
 
 在当前终端执行ros2命令确认当前终端环境是否生效：
@@ -228,11 +223,11 @@ optional arguments:
 
 2.1确认launch文件中的node是否都启动成功
 
-重新开启一个终端（仅对Ubuntu系统有效），执行top命令查看launch文件中的node进程是否都在运行，否则使用ros2 run命令单独启动相关node确认启动失败原因。
+重新开启一个终端，执行top命令查看launch文件中的node进程是否都在运行，否则使用ros2 run命令单独启动相关node确认启动失败原因。
 
 2.2 查看每个node是否都有发布msg
 
-根据launch文件中每个node配置的发布和订阅的topic名，使用ros2 topic echo（仅对Ubuntu系统有效）命令显示每个topic是否有消息发布，如果无，再确认没有发布的原因。
+根据launch文件中每个node配置的发布和订阅的topic名，使用ros2 topic echo命令显示每个topic是否有消息发布，如果无，再确认没有发布的原因。
 
 注意！如果运行ros2 topic命令失败，执行命令安装依赖：`pip3 install netifaces`
 
