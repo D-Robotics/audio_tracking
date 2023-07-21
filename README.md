@@ -169,8 +169,6 @@ ros2 launch audio_tracking audio_tracking.launch.py car_front_audio_angle:=180
 
 启动成功后，在机器人和mic板前发出设备唤醒词“地平线你好”，语音追踪控制模块接收到唤醒事件之后接收到DOA角度信息转动小车位置，然后"向前走"、"向后退"、"向右转"、"向左转"控制小车前后左右移动。
 
-PC端仿真环境中语音追踪控制小车运动，效果如下[点击跳转](https://developer.horizon.ai/api/v1/fileData/documents_tros/app/car_audio_control.html)
-
 # 接口说明
 
 ## 话题
