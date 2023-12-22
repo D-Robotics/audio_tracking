@@ -1,5 +1,10 @@
 # Changelog for package audio_tracking
 
+tros_2.0.2 (2023-12-22)
+------------------
+1. 更新README
+
+
 tros_2.0.1 (2023-07-17)
 ------------------
 1. 更新README

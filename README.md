@@ -76,9 +76,6 @@ source /opt/tros/setup.bash
 # 从地平线RDK的安装路径中拷贝出运行示例需要的配置文件。
 cp -r /opt/tros/lib/hobot_audio/config/ .
 
-# 加载音频驱动，设备启动之后只需要加载一次
-bash config/audio.sh
-
 # 屏蔽调式打印信息
 export GLOG_minloglevel=3
 
@@ -156,9 +153,6 @@ source /opt/tros/setup.bash
 
 # 从地平线RDK的安装路径中拷贝出运行示例需要的配置文件。
 cp -r /opt/tros/lib/hobot_audio/config/ .
-
-# 加载音频驱动，设备启动之后只需要加载一次
-bash config/audio.sh
 
 # 屏蔽调式打印信息
 export GLOG_minloglevel=3
