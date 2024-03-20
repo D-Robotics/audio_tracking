@@ -62,6 +62,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 ament_target_dependencies(${PROJECT_NAME}
 "rclcpp"
 "geometry_msgs"
+"tf2_geometry_msgs"
 "tf2"
 "tf2_ros"
 "nav_msgs"
