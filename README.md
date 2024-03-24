@@ -1,114 +1,113 @@
-# 功能介绍
+English| [简体中文](./README_cn.md)
 
-语音追踪控制小车运动功能根据声源定位的DOA角度信息控制机器人转向声源方向，并且控制机器人向前移动。此功能需要搭配地平线机器人操作系统的智能语音模块一起使用。当用户说出智能语音识别模块配置的唤醒词唤醒设备之后，语音追踪控制小车功能会激活，后续用户说出唤醒词或者配置的命令词，智能语音识别模块会输出声源的DOA角度信息，此模块收到DOA角度信息之后会控制消息转向声源方向，并且前进一定距离。
+# Function Introduction
 
-流程如下图：
+The voice tracking control function of the car's movement controls the robot to turn towards the direction of the sound source based on the DOA angle information of the sound source, and controls the robot to move forward. This function needs to be used together with the intelligent voice module of the Horizon Robot Operating System. When the user speaks the wake-up word configured in the intelligent voice recognition module to wake up the device, the voice tracking control function of the car will be activated. Subsequently, when the user speaks the wake-up word or the configured command word, the intelligent voice recognition module will output the DOA angle information of the sound source. After receiving the DOA angle information, this module will control the message to turn towards the direction of the sound source and move forward a certain distance.
+
+The workflow is as shown in the following diagram:
 
 ![audio_tracking](./imgs/audio_tracking.png)
 
-APP可以使用PC端Gazebo仿真环境下的虚拟小车运行，也可以直接用于控制实物小车。
+The APP can operate the virtual car in the Gazebo simulation environment on the PC side, or directly control the physical car.
 
-智能语音功能输出的声源定位DOA角度信息，单位为角度，支持环形麦克风阵列，环形麦克风阵列角度范围为0度~360度。麦克风角度的相对位置关系与麦克风的安装位置强相关，实际角度示意图如下：
+The DOA angle information output by the intelligent voice function refers to the positioning of the sound source, measured in degrees. It supports a circular microphone array, and the angle range of the circular microphone array is from 0 degrees to 360 degrees. The relative positional relationship of the microphone angles is strongly related to the mounting position of the microphones. The actual angle diagram is as shown below:
 
-环形麦克风：
+Circular microphone array:
 
 ![doa_circle](./imgs/doa_circle.jpg)
 
-# 机器人实物
+# Robot Physical Objects
 
-## 物料清单
+## Bill of Materials
 
-以下机器人均已适配RDK X3
+The following robots are all compatible with RDK X3
 
-| 机器人名称          | 生产厂家 | 参考链接                                                                                                                                                          |
-| :------------------ | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| OriginBot智能机器人 | 古月居   | [点击跳转](https://www.originbot.org/)                                                                                                                            |
-| X3派机器人          | 轮趣科技 | [点击跳转](https://item.taobao.com/item.htm?spm=a230r.1.14.17.55e556912LPGGx&id=676436236906&ns=1&abbucket=12#detail)                                             |
-| 履带智能车          | 微雪电子 | [点击跳转](https://detail.tmall.com/item.htm?abbucket=9&id=696078152772&rn=4d81bea40d392509d4a5153fb2c65a35&spm=a1z10.5-b-s.w4011-22714387486.159.12d33742lJtqRk) |
-| RDK X3 Robot        | 亚博智能 | [点击跳转](https://detail.tmall.com/item.htm?id=726857243156&scene=taobao_shop&spm=a1z10.1-b-s.w5003-22651379998.21.421044e12Yqrjm)                               |
-| 麦克风板            | 微雪电子 | [点击跳转](https://www.waveshare.net/shop/Audio-Driver-HAT.htm)                                                                                                   |
+| Robot Name          | Manufacturer | Reference Link                                                                                                                                                   |
+| :------------------ | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| OriginBot Smart Robot | Guyueju      | [Click here to jump](https://www.originbot.org/)                                                                                                               |
+| X3 Pie Robot         | Lunqu Technology | [Click here to jump](https://item.taobao.com/item.htm?spm=a230r.1.14.17.55e556912LPGGx&id=676436236906&ns=1&abbucket=12#detail)                                         |
+| Tracked Smart Car    | Waveshare Electronics | [Click here to jump](https://detail.tmall.com/item.htm?abbucket=9&id=696078152772&rn=4d81bea40d392509d4a5153fb2c65a35&spm=a1z10.5-b-s.w4011-22714387486.159.12d33742lJtqRk)       |
+| RDK X3 Robot        | Yabo Smart   | [Click here to jump](https://detail.tmall.com/item.htm?id=726857243156&scene=taobao_shop&spm=a1z10.1-b-s.w5003-22651379998.21.421044e12Yqrjm)                       |
+| Microphone Board    | Waveshare Electronics | [Click here to jump](https://www.waveshare.net/shop/Audio-Driver-HAT.htm)                                                                                            |
 
-## 使用方法
+## Instructions for Use
 
-### 准备工作
+### Preparatory Work
 
-1. 机器人具备运动底盘、相机、环形麦克风板及RDK套件，硬件已经连接并测试完毕；
-2. 已有ROS底层驱动，机器人可接收“/cmd_vel”指令运动，并根据指令正确运动。
+1. The robot is equipped with a motion chassis, camera, circular microphone board, and RDK kit, and the hardware is connected and tested;
+2. ROS low-level driver is available, and the robot can receive the "/cmd_vel" command to move and operate correctly.
 
-### 机器人组装
+### Robot Assembly
 
-以下操作过程以OriginBot为例，满足条件的其他机器人使用方法类似。参考机器人官网的[使用指引](https://www.originbot.org/guide/quick_guide/)，完成机器人的硬件组装、镜像烧写及示例运行，确认机器人的基础功能可以顺利运行。
+The following operation process is based on OriginBot, and the method is similar for other robots that meet the conditions. Refer to the robot's official website [usage guide](https://www.originbot.org/guide/quick_guide/) to complete the hardware assembly, image burning, and example running of the robot to ensure that the basic functions of the robot can run smoothly.
 
-### 安装功能包
+### Installation of Function Packages
 
-**1.参考[OriginBot说明](https://github.com/nodehubs/originbot_minimal/blob/develop/README.md)，完成OriginBot基础功能安装**
+**1. Refer to the [OriginBot instructions](https://github.com/nodehubs/originbot_minimal/blob/develop/README.md) to complete the installation of OriginBot's basic functions**
 
-**2.安装功能包**
+**2. Installation of Function Packages**
 
-启动机器人后，通过终端SSH或者VNC连接机器人，复制如下命令在RDK的系统上运行，完成相关Node的安装。
+After starting the robot, connect to the robot via SSH or VNC in the terminal, and run the following commands on the RDK system to install the related Nodes.
 
-```bash
+```bash```
 sudo apt update
 sudo apt install -y tros-audio-tracking
 ```
 
-### 运行功能
+### Function Execution
 
-运行语音追踪功能后，语音追踪控制模块会接收从智能语音功能模块发布的智能语音消息结果，并且解析消息，根据消息中的唤醒事件以及DOA角度信息发布控制小车转向某个方向特定角度的指令，当小车转向特定角度之后，继续控制小车前进一定距离（此模块默认控制小车前进0.2米的距离）。
+After running the voice tracking function, the voice tracking control module will receive intelligent voice messages from the intelligent voice function module, parse the messages, and based on the wake-up event and DOA angle information in the message, publish instructions to control the car to turn to a specific angle in a certain direction. After the car turns to a specific angle, it continues to control the car to move forward for a certain distance (this module defaults to controlling the car to move forward 0.2 meters).
 
-**1.启动机器人底盘**
+**1. Start the Robot Chassis**
 
-启动机器人，如OriginBot的启动命令如下：
+Start the robot, for example, the startup command for OriginBot is as follows:
 
 ```bash
 source /opt/tros/setup.bash
 ros2 launch originbot_base robot.launch.py 
 ```
 
-**2.启动语音控制**
+**2. Start Voice Control**
 
-启动一个新的终端，通过如下指令启动功能：
+Start a new terminal and start the function with the following commands:
 
 ```shell
-# 配置tros.n环境
+# Configure the tros.n environment
 source /opt/tros/setup.bash
 
-# 从地平线RDK的安装路径中拷贝出运行示例需要的配置文件。
+# Copy the configuration file required for running the example from the Horizon RDK installation path.
 cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_audio/config/ .
 
-# 屏蔽调式打印信息
+# Suppress debug print information
 export GLOG_minloglevel=3
 
-# 启动launch文件，指定小车正前方的语音DOA角度，以180为例
+# Start the launch file, specify the voice DOA angle in front of the car, using 180 as an example
 ros2 launch audio_tracking audio_tracking.launch.py car_front_audio_angle:=180
 ```
 
-启动成功后，在机器人和mic板前发出设备唤醒词“地平线你好”，语音追踪控制模块接收到唤醒事件之后接收到DOA角度信息转动小车位置，然后"向前走"、"向后退"、"向右转"、"向左转"控制小车前后左右移动。
+After successful startup, when the wake-up word "Hello Horizon" is detected in front of the robot and the microphone board, the voice tracking control module will receive the wake-up event, receive the DOA angle information, rotate the position of the car, and then control the car to move forward, backward, turn right, or turn left based on voice commands such as "go forward", "go backward", "turn right", "turn left".
 
-# Gazebo仿真
+# Gazebo Simulation
 
-Gazebo仿真适用于持有RDK X3但没有机器人实物的开发者体验功能。
+Gazebo simulation is suitable for developers who have RDK X3 but do not have the physical robot to experience the functions.
 
-## 物料清单
+## Bill of Materials
 
-| 机器人名称 | 生产厂家 | 参考链接                                                        |
-| :--------- | -------- | --------------------------------------------------------------- |
-| RDK X3     | 多厂家   | [点击跳转](https://developer.horizon.cc/sunrise)                |
-| 麦克风板   | 微雪电子 | [点击跳转](https://www.waveshare.net/shop/Audio-Driver-HAT.htm) |
+| Robot Name | Manufacturer | Reference Link                                                |
+| :--------- | ------------ | ------------------------------------------------------------ |
+| RDK X3     | Multiple     | [Click to jump](https://developer.horizon.cc/sunrise)        |
+| Microphone Board | Waveshare Electronics | [Click to jump](https://www.waveshare.net/shop/Audio-Driver-HAT.htm) |
 
-## 使用方法
+## Instructions
+```### Preparations
 
-### 准备工作
+1. The developer has physical RDK kit and a matching microphone board;
+2. The ROS Gazebo and Turtlebot robot related functional packages have been installed on the PC end;
+3. The PC, which is in the same network segment as the Horizon RDK (wired or connected to the same wireless network, the first three segments of the IP address should match), requires the following environment packages to be installed:
 
-1. 开发者有RDK套件实物，及配套的麦克风板;
-2. PC电脑端已经完成ROS Gazebo及Turtlebot机器人相关功能包安装;
-3. 和地平线RDK在同一网段（有线或者连接同一无线网，IP地址前三段需保持一致）的PC，PC端需要安装的环境包括：
-
-- Ubuntu 20.04系统
-
-- [ROS2 Foxy桌面版](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
-
-- Gazebo和Turtlebot3相关的功能包，安装方法：
+- Ubuntu 20.04 system
+- [ROS2 Foxy desktop version](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
+- Installation of Gazebo and Turtlebot3 related functional packages:
 
   ```shell
   sudo apt-get install ros-foxy-gazebo-*
@@ -116,22 +115,22 @@ Gazebo仿真适用于持有RDK X3但没有机器人实物的开发者体验功�
   sudo apt install ros-foxy-turtlebot3-simulations
   ```
 
-### 安装功能包
+### Installation of Functional Packages
 
-启动RDK X3后，通过终端SSH或者VNC连接机器人，复制如下命令在RDK的系统上运行，完成相关Node的安装。
+After starting RDK X3, connect to the robot via terminal SSH or VNC, and run the following commands on the RDK system to complete the installation of relevant Nodes.
 
 ```bash
 sudo apt update
 sudo apt install -y tros-audio-tracking
 ```
 
-### 运行功能
+### Running the Functionality
 
-运行语音追踪功能后，语音追踪控制模块会接收从智能语音功能模块发布的智能语音消息结果，并且解析消息，根据消息中的唤醒事件以及DOA角度信息发布控制小车转向某个方向特定角度的指令，当小车转向特定角度之后，继续控制小车前进一定距离（此模块默认控制小车前进0.2米的距离）。
+After the voice tracking function is enabled, the voice tracking control module will receive intelligent voice messages from the intelligent voice function module, parse the messages, and publish commands to steer the car in a specific direction and angle based on wake-up events and DOA angle information in the messages. After the car turns to a specific angle, it will continue to control the car to move forward a certain distance (this module defaults to controlling the car to move forward 0.2 meters).
 
-**1.启动仿真环境及机器人**
+**1. Starting the Simulation Environment and Robot**
 
-在PC端Ubuntu的终端中使用如下命令启动Gazebo，并加载机器人模型：
+In the Ubuntu terminal on the PC end, use the following commands to start Gazebo and load the robot model:
 
 ```shell
 source /opt/ros/foxy/setup.bash
@@ -139,92 +138,93 @@ export TURTLEBOT3_MODEL=burger
 ros2 launch turtlebot3_gazebo empty_world.launch.py
 ```
 
-启动成功后，仿真环境中小车效果如下：
+After successful launch, the car in the simulation environment appears as follows:
 
 ![gazebo](./imgs/gazebo.jpeg)
 
-**2.启动语音控制**
+**2. Starting the Voice Control**
 
-启动一个新的终端，通过如下指令启动功能：
+Start a new terminal and use the following command to launch the functionality:
 
 ```shell
-# 配置tros.n环境
+# Configure the tros.n environment
 source /opt/tros/setup.bash
-
-# 从地平线RDK的安装路径中拷贝出运行示例需要的配置文件。
+``````
+# Copy the configuration file required to run the example from the installation path of Horizon RDK.
 cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_audio/config/ .
 
-# 屏蔽调式打印信息
+# Disable debug print information
 export GLOG_minloglevel=3
 
-# 启动launch文件，指定小车正前方的语音DOA角度，以180为例
+# Start the launch file, specifying the DOA angle of the car's front-facing voice, using 180 as an example
 ros2 launch audio_tracking audio_tracking.launch.py car_front_audio_angle:=180
 ```
 
-启动成功后，在机器人和mic板前发出设备唤醒词“地平线你好”，语音追踪控制模块接收到唤醒事件之后接收到DOA角度信息转动小车位置，然后"向前走"、"向后退"、"向右转"、"向左转"控制小车前后左右移动。
+After successful startup, say the wake-up word "Hello Horizon" in front of the robot and the mic board, the voice tracking control module will receive the wake-up event, then receive the DOA angle information, rotate the car's position, and control the car to move forward, backward, turn right, or turn left.
 
-# 接口说明
+# Interface description
 
-## 话题
+## Topics
 
-| 名称     | 消息类型                | 说明                         |
-| -------- | ----------------------- | ---------------------------- |
-| /cmd_vel | geometry_msgs/msg/Twist | 发布控制机器人移动的速度指令 |
+| Name     | Message Type               | Description                    |
+| -------- | -------------------------- | ------------------------------ |
+| /cmd_vel | geometry_msgs/msg/Twist    | Publishes speed control commands to control the movement of the robot |
 
-## 参数
+## Parameters
 
-| 参数名                | 类型        | 解释                                 | 是否必须 | 支持的配置                                                                                              | 默认值       |
-| --------------------- | ----------- | ------------------------------------ | -------- | ------------------------------------------------------------------------------------------------------- | ------------ |
-| ai_msg_sub_topic_name | std::string | 订阅的音频智能帧消息话题             | 否       | 根据实际情况配置                                                                                        | /audio_smart |
-| twist_pub_topic_name  | std::string | 发布Twist类型的运动控制消息的topic名 | 否       | 根据实际部署环境配置。一般机器人订阅的topic为/cmd_vel，ROS2 turtlesim示例订阅的topic为turtle1/cmd_vel。 | /cmd_vel     |
-| move_step             | float       | 平移运动的步长，单位米               | 否       | 无限制                                                                                                  | 0.5          |
-| rotate_step           | float       | 旋转运动的步长，单位弧度             | 否       | 无限制                                                                                                  | 0.5          |
-| front_audio_angle     | int         | 小车正前方对应的语音DOA角度          | 否       | 0-360                                                                                                   | 180          |
+| Parameter Name       | Type        | Explanation                             | Required | Supported Configurations                                                                               | Default Value |
+| -------------------- | ----------- | --------------------------------------- | -------- | -------------------------------------------------------------------------------------------------------- | ------------- |
+| ai_msg_sub_topic_name | std::string | Subscribed topic for audio intelligence frames | No       | Configured according to actual situation                                                                 | /audio_smart  |
+| twist_pub_topic_name  | std::string | Topic name for publishing Twist type motion control messages | No       | Configured according to actual deployment environment. Generally, robots subscribe to /cmd_vel, while in ROS2 turtlesim example, it's turtle1/cmd_vel. | /cmd_vel      |
+| move_step             | float       | Step length for translation movement, in meters | No       | Unlimited                                                                                                | 0.5           |
+| rotate_step           | float       | Step length for rotational movement, in radians | No       | Unlimited                                                                                                | 0.5           |
+| front_audio_angle     | int         | Voice DOA angle corresponding to the front of the car | No       | 0-360                                                                                                   | 180           |
 
-# 参考资料
+# References
 
-语音控制参考：[开发者说 | AI 操控机器人系列第三期 —— 语音控制](https://developer.horizon.cc/forumDetail/109609560406362625)
+Speech control reference: [Developer Says | AI Robot Control Series Part 3 - Speech Control](https://developer.horizon.cc/forumDetail/109609560406362625)
 
-# 常见问题
+# Common Issues
 
-1.Ubuntu下运行启动命令报错`-bash: ros2: command not found`
+1. When running the startup command on Ubuntu, an error `-bash: ros2: command not found` occurs.
 
-当前终端未设置ROS2环境，执行命令配置环境：
+The ROS2 environment is not set in the current terminal. Execute the following command to set up the environment:
 
 ```bash
 source /opt/tros/setup.bash
 ```
 
-在当前终端执行ros2命令确认当前终端环境是否生效：
+Run the `ros2` command in the current terminal to confirm if the ROS2 environment is effective:
 
 ```shell
 # ros2
 usage: ros2 [-h] Call `ros2 <command> -h` for more detailed usage. ...
-
+``````yaml
 ros2 is an extensible command-line tool for ROS 2.
 
 optional arguments:
   -h, --help            show this help message and exit
 ```
 
-如果输出以上信息，说明ros2环境配置成功。
+If the above information is output, it indicates that the ROS2 environment is successfully configured.
 
-注意！对于每个新打开的终端，都需要重新设置ROS2环境。
+Note! For each new terminal opened, the ROS2 environment needs to be set again.
 
-2.终端无log信息输出
+2. Terminal has no log information output
 
-2.1确认launch文件中的node是否都启动成功
+2.1 Confirm if nodes in the launch file have all started successfully
 
-重新开启一个终端，执行top命令查看launch文件中的node进程是否都在运行，否则使用ros2 run命令单独启动相关node确认启动失败原因。
+Open a new terminal, execute the top command to check if the node processes in the launch file are running. Otherwise, use the `ros2 run` command to start the related nodes individually to confirm the reason for startup failure.
 
-2.2 查看每个node是否都有发布msg
+2.2 Check if each node is publishing messages
 
-根据launch文件中每个node配置的发布和订阅的topic名，使用ros2 topic echo命令显示每个topic是否有消息发布，如果无，再确认没有发布的原因。
+Based on the topics configured for publishing and subscribing in the launch file for each node, use the `ros2 topic echo` command to display if any messages are being published on each topic. If not, further confirm the reason for absence of publication.
 
-注意！如果运行ros2 topic命令失败，执行命令安装依赖：`pip3 install netifaces`
+Note! If running the `ros2 topic` command fails, execute the command to install the dependency: `pip3 install netifaces`
 
-3.无法打开音频设备
+3. Unable to open the audio device
 
-3.1 确认音频设备接线是否正常
+3.1 Confirm if the audio device connections are normal
 
-3.2 确认是否加载音频驱动
+3.2 Confirm if the audio drivers are loaded
+```  
