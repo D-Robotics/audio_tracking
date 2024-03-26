@@ -49,7 +49,7 @@ The following operation process is based on OriginBot, and the method is similar
 
 After starting the robot, connect to the robot via SSH or VNC in the terminal, and run the following commands on the RDK system to install the related Nodes.
 
-```bash```
+```bash
 sudo apt update
 sudo apt install -y tros-audio-tracking
 ```
@@ -99,7 +99,7 @@ Gazebo simulation is suitable for developers who have RDK X3 but do not have the
 | Microphone Board | Waveshare Electronics | [Click to jump](https://www.waveshare.net/shop/Audio-Driver-HAT.htm) |
 
 ## Instructions
-```### Preparations
+### Preparations
 
 1. The developer has physical RDK kit and a matching microphone board;
 2. The ROS Gazebo and Turtlebot robot related functional packages have been installed on the PC end;
@@ -149,7 +149,9 @@ Start a new terminal and use the following command to launch the functionality:
 ```shell
 # Configure the tros.n environment
 source /opt/tros/setup.bash
-``````
+```
+
+```
 # Copy the configuration file required to run the example from the installation path of Horizon RDK.
 cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_audio/config/ .
 
@@ -199,7 +201,9 @@ Run the `ros2` command in the current terminal to confirm if the ROS2 environmen
 ```shell
 # ros2
 usage: ros2 [-h] Call `ros2 <command> -h` for more detailed usage. ...
-``````yaml
+```
+
+```shell
 ros2 is an extensible command-line tool for ROS 2.
 
 optional arguments:
@@ -227,4 +231,3 @@ Note! If running the `ros2 topic` command fails, execute the command to install 
 3.1 Confirm if the audio device connections are normal
 
 3.2 Confirm if the audio drivers are loaded
-```  
