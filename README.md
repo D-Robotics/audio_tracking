@@ -49,9 +49,16 @@ The following operation process is based on OriginBot, and the method is similar
 
 After starting the robot, connect to the robot via SSH or VNC in the terminal, and run the following commands on the RDK system to install the related Nodes.
 
+tros foxy:
 ```bash
 sudo apt update
 sudo apt install -y tros-audio-tracking
+```
+
+tros humble:
+```bash
+sudo apt update
+sudo apt install -y tros-humble-audio-tracking
 ```
 
 ### Function Execution
@@ -62,8 +69,15 @@ After running the voice tracking function, the voice tracking control module wil
 
 Start the robot, for example, the startup command for OriginBot is as follows:
 
+tros foxy:
 ```bash
 source /opt/tros/setup.bash
+ros2 launch originbot_base robot.launch.py 
+```
+
+tros humble:
+```bash
+source /opt/tros/humble/setup.bash
 ros2 launch originbot_base robot.launch.py 
 ```
 
@@ -71,9 +85,26 @@ ros2 launch originbot_base robot.launch.py
 
 Start a new terminal and start the function with the following commands:
 
+tros foxy:
 ```shell
 # Configure the tros.n environment
 source /opt/tros/setup.bash
+
+# Copy the configuration file required for running the example from the Horizon RDK installation path.
+cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_audio/config/ .
+
+# Suppress debug print information
+export GLOG_minloglevel=3
+
+# Start the launch file, specify the voice DOA angle in front of the car, using 180 as an example
+ros2 launch audio_tracking audio_tracking.launch.py car_front_audio_angle:=180
+```
+
+
+tros humble:
+```shell
+# Configure the tros.b humble environment
+source /opt/tros/humble/setup.bash
 
 # Copy the configuration file required for running the example from the Horizon RDK installation path.
 cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_audio/config/ .
@@ -105,6 +136,7 @@ Gazebo simulation is suitable for developers who have RDK X3 but do not have the
 2. The ROS Gazebo and Turtlebot robot related functional packages have been installed on the PC end;
 3. The PC, which is in the same network segment as the Horizon RDK (wired or connected to the same wireless network, the first three segments of the IP address should match), requires the following environment packages to be installed:
 
+tros foxy:
 - Ubuntu 20.04 system
 - [ROS2 Foxy desktop version](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html)
 - Installation of Gazebo and Turtlebot3 related functional packages:
@@ -115,13 +147,31 @@ Gazebo simulation is suitable for developers who have RDK X3 but do not have the
   sudo apt install ros-foxy-turtlebot3-simulations
   ```
 
+tros humble:
+- Ubuntu 22.04 system
+- [ROS2 Humble desktop version](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+- Installation of Gazebo and Turtlebot3 related functional packages:
+
+  ```shell
+  sudo apt-get install ros-humble-gazebo-*
+  sudo apt install ros-humble-turtlebot3
+  sudo apt install ros-humble-turtlebot3-simulations
+  ```
+
 ### Installation of Functional Packages
 
 After starting RDK X3, connect to the robot via terminal SSH or VNC, and run the following commands on the RDK system to complete the installation of relevant Nodes.
 
+tros foxy:
 ```bash
 sudo apt update
 sudo apt install -y tros-audio-tracking
+```
+
+tros humble:
+```bash
+sudo apt update
+sudo apt install -y tros-humble-audio-tracking
 ```
 
 ### Running the Functionality
@@ -132,8 +182,16 @@ After the voice tracking function is enabled, the voice tracking control module 
 
 In the Ubuntu terminal on the PC end, use the following commands to start Gazebo and load the robot model:
 
+tros foxy:
 ```shell
 source /opt/ros/foxy/setup.bash
+export TURTLEBOT3_MODEL=burger
+ros2 launch turtlebot3_gazebo empty_world.launch.py
+```
+
+tros humble:
+```shell
+source /opt/ros/humble/setup.bash
 export TURTLEBOT3_MODEL=burger
 ros2 launch turtlebot3_gazebo empty_world.launch.py
 ```
@@ -146,9 +204,16 @@ After successful launch, the car in the simulation environment appears as follow
 
 Start a new terminal and use the following command to launch the functionality:
 
+tros foxy:
 ```shell
 # Configure the tros.n environment
 source /opt/tros/setup.bash
+```
+
+tros humble:
+```shell
+# Configure the tros.b humble environment
+source /opt/tros/humble/setup.bash
 ```
 
 ```
@@ -192,8 +257,14 @@ Speech control reference: [Developer Says | AI Robot Control Series Part 3 - Spe
 
 The ROS2 environment is not set in the current terminal. Execute the following command to set up the environment:
 
+tros foxy:
 ```bash
 source /opt/tros/setup.bash
+```
+
+tros humble:
+```bash
+source /opt/tros/humble/setup.bash
 ```
 
 Run the `ros2` command in the current terminal to confirm if the ROS2 environment is effective:
