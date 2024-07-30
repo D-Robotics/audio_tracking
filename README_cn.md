@@ -2,7 +2,7 @@
 
 # 功能介绍
 
-语音追踪控制小车运动功能根据声源定位的DOA角度信息控制机器人转向声源方向，并且控制机器人向前移动。此功能需要搭配地平线机器人操作系统的智能语音模块一起使用。当用户说出智能语音识别模块配置的唤醒词唤醒设备之后，语音追踪控制小车功能会激活，后续用户说出唤醒词或者配置的命令词，智能语音识别模块会输出声源的DOA角度信息，此模块收到DOA角度信息之后会控制消息转向声源方向，并且前进一定距离。
+语音追踪控制小车运动功能根据声源定位的DOA角度信息控制机器人转向声源方向，并且控制机器人向前移动。此功能需要搭配TROS的智能语音模块一起使用。当用户说出智能语音识别模块配置的唤醒词唤醒设备之后，语音追踪控制小车功能会激活，后续用户说出唤醒词或者配置的命令词，智能语音识别模块会输出声源的DOA角度信息，此模块收到DOA角度信息之后会控制消息转向声源方向，并且前进一定距离。
 
 流程如下图：
 
@@ -90,7 +90,7 @@ tros foxy 版本
 # 配置tros.n环境
 source /opt/tros/setup.bash
 
-# 从地平线RDK的安装路径中拷贝出运行示例需要的配置文件。
+# 从RDK的安装路径中拷贝出运行示例需要的配置文件。
 cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_audio/config/ .
 
 # 屏蔽调式打印信息
@@ -105,7 +105,7 @@ tros humble 版本
 # 配置tros.b humble环境
 source /opt/tros/humble/setup.bash
 
-# 从地平线RDK的安装路径中拷贝出运行示例需要的配置文件。
+# 从RDK的安装路径中拷贝出运行示例需要的配置文件。
 cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_audio/config/ .
 
 # 屏蔽调式打印信息
@@ -134,7 +134,7 @@ Gazebo仿真适用于持有RDK X3但没有机器人实物的开发者体验功�
 
 1. 开发者有RDK套件实物，及配套的麦克风板;
 2. PC电脑端已经完成ROS Gazebo及Turtlebot机器人相关功能包安装;
-3. 和地平线RDK在同一网段（有线或者连接同一无线网，IP地址前三段需保持一致）的PC，PC端需要安装的环境包括：
+3. 和RDK在同一网段（有线或者连接同一无线网，IP地址前三段需保持一致）的PC，PC端需要安装的环境包括：
 
 tros foxy 版本
 - Ubuntu 20.04系统
@@ -209,7 +209,7 @@ tros foxy 版本
 # 配置tros.n环境
 source /opt/tros/setup.bash
 
-# 从地平线RDK的安装路径中拷贝出运行示例需要的配置文件。
+# 从RDK的安装路径中拷贝出运行示例需要的配置文件。
 cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_audio/config/ .
 
 # 屏蔽调式打印信息
@@ -224,7 +224,7 @@ tros humble 版本
 # 配置tros.b humble环境
 source /opt/tros/humble/setup.bash
 
-# 从地平线RDK的安装路径中拷贝出运行示例需要的配置文件。
+# 从RDK的安装路径中拷贝出运行示例需要的配置文件。
 cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_audio/config/ .
 
 # 屏蔽调式打印信息

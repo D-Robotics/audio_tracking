@@ -2,7 +2,7 @@ English| [简体中文](./README_cn.md)
 
 # Function Introduction
 
-The voice tracking control function of the car's movement controls the robot to turn towards the direction of the sound source based on the DOA angle information of the sound source, and controls the robot to move forward. This function needs to be used together with the intelligent voice module of the Horizon Robot Operating System. When the user speaks the wake-up word configured in the intelligent voice recognition module to wake up the device, the voice tracking control function of the car will be activated. Subsequently, when the user speaks the wake-up word or the configured command word, the intelligent voice recognition module will output the DOA angle information of the sound source. After receiving the DOA angle information, this module will control the message to turn towards the direction of the sound source and move forward a certain distance.
+The voice tracking control function of the car's movement controls the robot to turn towards the direction of the sound source based on the DOA angle information of the sound source, and controls the robot to move forward. This function needs to be used together with the intelligent voice module of the D-Robotics Robot Operating System. When the user speaks the wake-up word configured in the intelligent voice recognition module to wake up the device, the voice tracking control function of the car will be activated. Subsequently, when the user speaks the wake-up word or the configured command word, the intelligent voice recognition module will output the DOA angle information of the sound source. After receiving the DOA angle information, this module will control the message to turn towards the direction of the sound source and move forward a certain distance.
 
 The workflow is as shown in the following diagram:
 
@@ -90,7 +90,7 @@ tros foxy:
 # Configure the tros.n environment
 source /opt/tros/setup.bash
 
-# Copy the configuration file required for running the example from the Horizon RDK installation path.
+# Copy the configuration file required for running the example from the RDK installation path.
 cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_audio/config/ .
 
 # Suppress debug print information
@@ -106,7 +106,7 @@ tros humble:
 # Configure the tros.b humble environment
 source /opt/tros/humble/setup.bash
 
-# Copy the configuration file required for running the example from the Horizon RDK installation path.
+# Copy the configuration file required for running the example from the RDK installation path.
 cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_audio/config/ .
 
 # Suppress debug print information
@@ -126,7 +126,7 @@ Gazebo simulation is suitable for developers who have RDK X3 but do not have the
 
 | Robot Name | Manufacturer | Reference Link                                                |
 | :--------- | ------------ | ------------------------------------------------------------ |
-| RDK X3     | Multiple     | [Click to jump](https://developer.horizon.cc/sunrise)        |
+| RDK X3     | Multiple     | [Click to jump](https://developer.d-robotics.cc/rdkx3)        |
 | Microphone Board | Waveshare Electronics | [Click to jump](https://www.waveshare.net/shop/Audio-Driver-HAT.htm) |
 
 ## Instructions
@@ -134,7 +134,7 @@ Gazebo simulation is suitable for developers who have RDK X3 but do not have the
 
 1. The developer has physical RDK kit and a matching microphone board;
 2. The ROS Gazebo and Turtlebot robot related functional packages have been installed on the PC end;
-3. The PC, which is in the same network segment as the Horizon RDK (wired or connected to the same wireless network, the first three segments of the IP address should match), requires the following environment packages to be installed:
+3. The PC, which is in the same network segment as the RDK (wired or connected to the same wireless network, the first three segments of the IP address should match), requires the following environment packages to be installed:
 
 tros foxy:
 - Ubuntu 20.04 system
@@ -217,7 +217,7 @@ source /opt/tros/humble/setup.bash
 ```
 
 ```
-# Copy the configuration file required to run the example from the installation path of Horizon RDK.
+# Copy the configuration file required to run the example from the installation path of RDK.
 cp -r /opt/tros/${TROS_DISTRO}/lib/hobot_audio/config/ .
 
 # Disable debug print information
