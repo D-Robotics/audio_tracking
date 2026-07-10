@@ -23,7 +23,11 @@
 #include <vector>
 
 #include "include/audio_common.h"
-#include "tf2_geometry_msgs/tf2_geometry_msgs.h"
+#ifdef CV_BRIDGE_CPP
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+#else
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#endif
 
 const float PI = 3.14159;
 
